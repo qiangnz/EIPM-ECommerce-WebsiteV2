@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using EIPM_ECommerce_Website.Models;
@@ -14,7 +15,7 @@ namespace EIPM_ECommerce_Website.Controllers
             EIPMDBEntities DB = new EIPMDBEntities();
             var Product = from p in DB.ProductTables orderby p.Id select p;
             ViewBag.Items = Product;
-            return View();
+            return View(Product);
         }
 
         public ActionResult About()
@@ -22,6 +23,11 @@ namespace EIPM_ECommerce_Website.Controllers
             ViewBag.Message = "Your application description page.";
 
             return View();
+        }
+
+        public Task<ViewResult> GetData()
+        {
+            throw new NotImplementedException();
         }
 
         public ActionResult Contact()

@@ -12,10 +12,25 @@ namespace EIPM_ECommerce_Website.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            UserLogin login = new UserLogin();
             return View();
         }
+        //[HttpPost]
+        //public ActionResult Authenticate([Bind(Include = "userName,password")] UserLogin LoginDetails)
+        //{
+        //    // Read credentials from file
+        //    string[] credentials = System.IO.File.ReadAllLines("login.txt");
+        //    var credUsername = credentials[0];
+        //    var credPassword = credentials[1];
+        //    if (LoginDetails.username == credUsername && LoginDetails.password == credPassword)
+        //    {
+        //        return RedirectToAction("Index", "Checkout");
+        //    }
+        //    return View("Index");
+        //}
+
         [HttpPost]
-        public ActionResult Authenticate([Bind(Include = "userName,password")] UserLogin LoginDetails)
+        public ActionResult Authenticate(UserLogin LoginDetails)
         {
             // Read credentials from file
             string[] credentials = System.IO.File.ReadAllLines("login.txt");
@@ -23,9 +38,9 @@ namespace EIPM_ECommerce_Website.Controllers
             var credPassword = credentials[1];
             if (LoginDetails.username == credUsername && LoginDetails.password == credPassword)
             {
-                return RedirectToAction("Index", "Home");
+                return View("Index", "Checkout");
             }
-            return View("Index");
+            return View("Index","Home");
         }
 
     }
