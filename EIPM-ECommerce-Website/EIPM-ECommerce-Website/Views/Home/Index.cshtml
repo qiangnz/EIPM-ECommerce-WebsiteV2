@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@using EIPM_ECommerce_Website.Models;
+<link href="~/Content/Site.css" rel="stylesheet" />
+<div id="themeSlider" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#themeSlider" data-slide-to="0" class="active"></li>
+        <li data-target="#themeSlider" data-slide-to="1"></li>
+        <li data-target="#themeSlider" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="imgOverlay"></div>
+            <img style="height:320px;width:100%" src="../Images/HomeSlider01.jpg">
+            <div class="carousel-caption">
+                <h3>Wellcome to EIPM Shopping Store</h3>
+                @*<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>*@
+            </div>
+        </div>
+        <div class="item">
+            <div class="imgOverlay"></div>
+            <img style="height:320px;width:100%" src="../Images/HomeSlider02.jpg" alt="Second slide">
+            <div class="carousel-caption">
+                <h3>Wellcome to EIPM Shopping Store</h3>
+                @*<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>*@
+            </div>
+        </div>
+        <div class="item">
+            <div class="imgOverlay"></div>
+            <img style="height:320px;width:100%" src="../Images/HomeSlider03.jpg" alt="Third slide">
+            <div class="carousel-caption">
+                <h3>Wellcome to EIPM Shopping Store</h3>
+                @*<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>*@
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#themeSlider" data-slide="prev">
+        <span class="fa fa-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#themeSlider" data-slide="next">
+        <span class="fa fa-chevron-right"></span>
+    </a>
+</div>
+
+
+@*<div class="container bootstrap snipets">
+        <h1 class="text-center text-muted">Product Catalog</h1>
+        <div class="row flow-offset-1">
+            @foreach (var item in ViewBag.Items)
+            {
+                <div class="col-xs-6 col-md-4">
+
+
+                    <div class="product tumbnail thumbnail-3">
+                        <a href="#"><img src="~/Images/@item.ImgRef" alt=""width="80"></a>
+                        <div class="caption">
+                            <h6><a href="#">@item.Name</a></h6><span class="price">
+                                <del>@item.Price</del>
+                            </span><span class="price sale">$12.49</span>
+                        </div>
+                    </div>
+
+                </div>
+               }
+           </div>
+    </div>*@
+
+@*<h3>Products List</h3>
+    <table cellpadding="2" cellspacing="2" border="1">
+        <tr>
+            <th>Name</th>
+            <th>Photo</th>
+            <th>Price</th>
+            <th>Buy</th>
+        </tr>
+        @foreach (var item in ViewBag.Items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td><img src="~/Images/@item.ImgRef" width="80" /> </td>
+                <td>@item.Price</td>
+                <td align="center">
+                    <a href="@Url.Action("Buy", "Cart", new { id = item.Id })">Buy Now</a>
+                </td>
+            </tr>
+        }
+    </table>*@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Image</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.Items)
+        {
+            <tr>
+                <th scope="row">@item.Name</th>
+                <td><img src="~/Images/@item.ImgRef" width="80" /></td>
+                <td>$@item.Price</td>
+                <td><input type="button" class="btn btn-success" value="Buy Now" onclick="location.href='@Url.Action("Buy", "Checkout", new { id = item.Id })'" /></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*<td><a href="@Url.Action("Buy", "Checkout", new { id = item.Id })">Buy Now</a></td>*@

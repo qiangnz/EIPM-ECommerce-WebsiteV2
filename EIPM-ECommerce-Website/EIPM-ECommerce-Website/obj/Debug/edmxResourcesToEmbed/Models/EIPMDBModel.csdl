@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EIPMDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ProductTable">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="ImgRef" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="TransactionTable">
+    <Key>
+      <PropertyRef Name="TId" />
+    </Key>
+    <Property Name="TId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TAmount" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="TURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="EIPMDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ProductTables" EntityType="Self.ProductTable" />
+    <EntitySet Name="TransactionTables" EntityType="Self.TransactionTable" />
+  </EntityContainer>
+</Schema>
