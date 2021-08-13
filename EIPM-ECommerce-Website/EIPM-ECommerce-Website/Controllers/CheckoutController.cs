@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.IO;
+using System.Net;
 using System.Web.Mvc;
 using EIPM_ECommerce_Website.Models;
+
 
 namespace EIPM_ECommerce_Website.Controllers
 {
@@ -68,6 +70,90 @@ namespace EIPM_ECommerce_Website.Controllers
                 if (checkout[i].Product.Id.Equals(Id))
                     return i;
             return -1;
+        }
+
+
+        public ActionResult TestAPI(Decimal amount)
+        {
+            int i = 6503;
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://cst.test-gsc.vfims.com/oidc/checkout-service/v2/checkout");
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Method = "POST";
+            httpWebRequest.Headers.Add("Authorization", "Basic ZTQ0ODFlYTItOTQ4OS00NTUyLTk1YjItNDI1ZDUzNjcwODU4OlZnWmlndU9rTGNidk1JWlRlcU9OWElBQUtleEVHTmh0YW9wZQ==");
+            // ----------------------------------------------------------------------------------------------------------------------------------------
+            string url = HttpContext.Request.Url.AbsoluteUri;
+            //Debug.WriteLine("\nurl is: " + url);
+            url = url.Remove(url.IndexOf(HttpContext.Request.Url.AbsolutePath));
+            //Debug.WriteLine("url cutoff is: " + url);
+            // -----------------------------------------------------------------------------------------------------------------
+            // API POST
+            string s = amount.ToString();
+            s= s.Replace(".", "");
+            int p = int.Parse(s);
+            EIPMDBEntities db = new EIPMDBEntities();
+            
+            int f =3 ;
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                string json =
+                    "{\n"
+                        + "\t\"amount\" :" + p + ",\n"
+                        + "\t\"currency_code\" : \"NZD\" ,\n"
+                        + "\t\"entity_id\" : \"71db68ad-a2e5-4f32-a771-688aa8ba0b9a\",\n"
+                        + "\t\"configurations\": {\n"
+                            + "\t\t\"card\": { \n"
+                                + "\t\t\t\"payment_contract_id\": \"dbc21671-f4e7-4902-80b5-7b262a201408\"\n"
+                            + "\t\t} \n"
+                        + "\t },\n"
+                        + "\t\"merchant_reference\": \"TestRef00" + f.ToString() + "\",\n"
+                        + "\t\"return_url\" : \"" + url + "/Cart/\",\n"
+                        + "\t\"interaction_type\": \"HPP\"\n"
+                    + "}";
+                //Debug.WriteLine("JSON REQUEST - POST (send): " + json);
+                streamWriter.Write(json);
+            }
+            string results = "";
+
+            try
+            {
+                // API causes an exception to be thrown when an error
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    results = result.ToString();
+                    //Debug.WriteLine("JSON REQUEST - POST (reply): " + results);
+                    //Debug.WriteLine(Url.ToString());
+                }
+            }
+            catch (Exception ECE)
+            {
+                //Debug.WriteLine("Error Code exception caught, redirecting");
+                //Debug.WriteLine("Error: " + ECE.Message + "\n\n" + ECE.StackTrace);
+                //Debug.WriteLine(ECE);
+                string str = ECE.Message.Replace(" ", "_");
+                str = str.Replace("(", "__");
+                str = str.Replace(")", "__");
+                return RedirectToAction("Index", "Cart", new { Error = str });
+            }
+
+            string link = "https://www.google.com";
+            string[] arrays = results.Split('\"');
+            foreach (string e in arrays)
+            {
+                //Debug.WriteLine(e);
+                if (e.Contains("https://cst.checkout.vficloud.net/v2/checkout") == true)
+                {
+                    link = e;
+                }
+            }
+            TransactionTable tt = new TransactionTable();
+            tt.TAmount = amount;
+            tt.Date = DateTime.Now;
+            db.TransactionTables.Add(tt);
+            db.SaveChanges();
+            return Redirect(link);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    decimal total = 1.50m;
 }
 @using EIPM_ECommerce_Website.Models;
 <div>
@@ -41,18 +42,14 @@ else
                 <td>
                     @{
                         List<Checkout> cart = (List<Checkout>)Session["Checkout"];
-    var total = cart.Sum(item => item.Product.Price * item.Quantity);
-}
-@total
-</td>
-
-</tr>
-
-</tbody>
-
-
-</table>
+                        total = cart.Sum(item => item.Product.Price * item.Quantity);
+                    }
+                @total
+                </td>
+            </tr>
+        </tbody>
+    </table>
 }
 <input type="button" class="btn btn-primary" value="Continue Shopping" onclick="location.href='@Url.Action("Index", "Home")'" />
 
-<input type="button" class="btn btn-primary pull-right" value="Payment" onclick="location.href='@Url.Action("Index", "Home")'" />
+<input type="button" style="background-color:limegreen;"class="btn btn-primary pull-right" value="Payment" onclick="location.href='@Url.Action("TestAPI", "Checkout", new { amount = total})'" />

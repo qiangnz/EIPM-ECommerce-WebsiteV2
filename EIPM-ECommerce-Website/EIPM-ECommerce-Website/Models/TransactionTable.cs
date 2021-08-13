@@ -15,7 +15,7 @@ namespace EIPM_ECommerce_Website.Models
     public partial class TransactionTable
     {
         public int TId { get; set; }
-        public Nullable<decimal> TAmount { get; set; }
+        public decimal TAmount { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string TURL { get; set; }
     }
