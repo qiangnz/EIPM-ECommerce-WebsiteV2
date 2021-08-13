@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\GitCodingZone\20210809.3Backup\EIPM-ECommerce-Website\EIPM-ECommerce-Website\Models\EIPMDBModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\gabri\Documents\EIPMV3.5\EIPM-ECommerce-Website\EIPM-ECommerce-Website\Models\EIPMDBModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

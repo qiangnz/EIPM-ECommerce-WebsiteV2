@@ -14,9 +14,9 @@
       <PropertyRef Name="TId" />
     </Key>
     <Property Name="TId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TAmount" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="TAmount" Type="numeric" Precision="10" Scale="2" Nullable="false" />
     <Property Name="Date" Type="datetime" />
-    <Property Name="TURL" Type="nvarchar" MaxLength="50" />
+    <Property Name="TURL" Type="nvarchar" MaxLength="120" />
   </EntityType>
   <EntityContainer Name="EIPMDBModelStoreContainer">
     <EntitySet Name="ProductTable" EntityType="Self.ProductTable" Schema="dbo" store:Type="Tables" />

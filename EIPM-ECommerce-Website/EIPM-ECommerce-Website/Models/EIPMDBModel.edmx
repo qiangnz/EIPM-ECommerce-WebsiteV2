@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EIPMDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EIPMDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ProductTable">
           <Key>
             <PropertyRef Name="Id" />
@@ -19,16 +19,15 @@
             <PropertyRef Name="TId" />
           </Key>
           <Property Name="TId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TAmount" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="TAmount" Type="numeric" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Date" Type="datetime" />
-          <Property Name="TURL" Type="nvarchar" MaxLength="50" />
+          <Property Name="TURL" Type="nvarchar" MaxLength="120" />
         </EntityType>
         <EntityContainer Name="EIPMDBModelStoreContainer">
           <EntitySet Name="ProductTable" EntityType="Self.ProductTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransactionTable" EntityType="Self.TransactionTable" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EIPMDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -46,9 +45,9 @@
             <PropertyRef Name="TId" />
           </Key>
           <Property Name="TId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TAmount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TAmount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Date" Type="DateTime" Precision="3" />
-          <Property Name="TURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TURL" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="EIPMDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ProductTables" EntityType="Self.ProductTable" />

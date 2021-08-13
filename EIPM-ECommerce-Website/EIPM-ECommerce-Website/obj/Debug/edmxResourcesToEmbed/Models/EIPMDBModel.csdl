@@ -14,9 +14,9 @@
       <PropertyRef Name="TId" />
     </Key>
     <Property Name="TId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TAmount" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="TAmount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="Date" Type="DateTime" Precision="3" />
-    <Property Name="TURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TURL" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityContainer Name="EIPMDBEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ProductTables" EntityType="Self.ProductTable" />
