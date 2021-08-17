@@ -150,6 +150,7 @@ namespace EIPM_ECommerce_Website.Controllers
             }
             TransactionTable tt = new TransactionTable();
             tt.TAmount = amount;
+            tt.TURL = link;
             tt.Date = DateTime.Now;
             db.TransactionTables.Add(tt);
             db.SaveChanges();
