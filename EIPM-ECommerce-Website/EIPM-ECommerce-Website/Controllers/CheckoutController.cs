@@ -74,8 +74,9 @@ namespace EIPM_ECommerce_Website.Controllers
 
 
         public ActionResult TestAPI(Decimal amount)
-        {
-            int i = 6503;
+        { 
+            string redirectPage = "/Cart/PurchaseStatus";
+
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://cst.test-gsc.vfims.com/oidc/checkout-service/v2/checkout");
             httpWebRequest.ContentType = "application/json";
@@ -107,7 +108,7 @@ namespace EIPM_ECommerce_Website.Controllers
                             + "\t\t} \n"
                         + "\t },\n"
                         + "\t\"merchant_reference\": \"TestRef00" + f.ToString() + "\",\n"
-                        + "\t\"return_url\" : \"" + url + "/Cart/\",\n"
+                        + "\t\"return_url\" : \"" + url + redirectPage +"\",\n"
                         + "\t\"interaction_type\": \"HPP\"\n"
                     + "}";
                 //Debug.WriteLine("JSON REQUEST - POST (send): " + json);
@@ -117,7 +118,7 @@ namespace EIPM_ECommerce_Website.Controllers
 
             try
             {
-                // API causes an exception to be thrown when an error
+                // API causes an Exception to be thrown when there is a problem with the json format
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
@@ -155,6 +156,53 @@ namespace EIPM_ECommerce_Website.Controllers
             db.TransactionTables.Add(tt);
             db.SaveChanges();
             return Redirect(link);
+        }
+
+
+        // example function to GET the api request
+        // you can use your own one if you want. I made this function to help you understand in case you get confused.
+        public string PurchaseStatus()
+        {
+
+            // get the URL and store as 'url'
+            string url = HttpContext.Request.Url.AbsoluteUri;
+
+            // you will need to put the url for the API's GET  request here :
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("API GET URL"+"id from url");
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Method = "GET";
+            httpWebRequest.Headers.Add("Authorization", "Basic ZTQ0ODFlYTItOTQ4OS00NTUyLTk1YjItNDI1ZDUzNjcwODU4OlZnWmlndU9rTGNidk1JWlRlcU9OWElBQUtleEVHTmh0YW9wZQ==");
+            // ----------------------------------------------------------------------------------------------------------------------------------------
+
+            // This line will send the json
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                // example json request
+                string json = "";
+            }
+
+            string results = "";
+
+            // use this to retrieve the json
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+                results = result.ToString();
+            }
+            int code = 200;
+            
+            // anlyse result here
+
+            if(code==200)
+            {
+                // if success then go to success page
+            }
+            else
+            {
+                // if fail go to fail page...
+            }
+            return "This is a placeholder page";
         }
     }
 }
