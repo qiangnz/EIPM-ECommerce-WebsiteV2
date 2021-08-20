@@ -61,6 +61,32 @@ namespace EIPM_ECommerce_Website.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult AddQuantity(int Id)
+        {
+            List<Checkout> checkout = (List<Checkout>)Session["Checkout"];
+            int index = isExist(Id);
+            checkout[index].Quantity++;
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult MinusQuantity(int Id)
+        {
+            List<Checkout> checkout = (List<Checkout>)Session["Checkout"];
+            int index = isExist(Id);
+            if (checkout[index].Quantity == 1 )
+            {
+                checkout.RemoveAt(index);
+                Session["Checkout"] = checkout;
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                checkout[index].Quantity--;
+            }
+            return RedirectToAction("Index");
+        }
+
         private int isExist(int Id)
         {
             List<Checkout> checkout = (List<Checkout>)Session["Checkout"];
