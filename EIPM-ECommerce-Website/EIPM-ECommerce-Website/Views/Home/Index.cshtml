@@ -42,72 +42,27 @@
     </a>
 </div>
 
-
-@*<div class="container bootstrap snipets">
-        <h1 class="text-center text-muted">Product Catalog</h1>
-        <div class="row flow-offset-1">
-            @foreach (var item in ViewBag.Items)
-            {
-                <div class="col-xs-6 col-md-4">
-
-
-                    <div class="product tumbnail thumbnail-3">
-                        <a href="#"><img src="~/Images/@item.ImgRef" alt=""width="80"></a>
-                        <div class="caption">
-                            <h6><a href="#">@item.Name</a></h6><span class="price">
-                                <del>@item.Price</del>
-                            </span><span class="price sale">$12.49</span>
-                        </div>
-                    </div>
-
-                </div>
-               }
-           </div>
-    </div>*@
-
-@*<h3>Products List</h3>
-    <table cellpadding="2" cellspacing="2" border="1">
-        <tr>
-            <th>Name</th>
-            <th>Photo</th>
-            <th>Price</th>
-            <th>Buy</th>
-        </tr>
-        @foreach (var item in ViewBag.Items)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td><img src="~/Images/@item.ImgRef" width="80" /> </td>
-                <td>@item.Price</td>
-                <td align="center">
-                    <a href="@Url.Action("Buy", "Cart", new { id = item.Id })">Buy Now</a>
-                </td>
-            </tr>
-        }
-    </table>*@
-
 <h3 style="text-align:center"><strong>Product List</strong></h3>
 <table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Product Name</th>
-            <th scope="col">Product Image</th>
-            <th scope="col">Price</th>
-            <th scope="col">Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in ViewBag.Items)
-        {
+        <thead>
             <tr>
-                <th scope="row">@item.Name</th>
-                <td><img src="~/Images/@item.ImgRef" width="80" /></td>
-                <td>$@item.Price</td>
-                <td><input type="button" class="btn btn-success" value="Buy Now" onclick="location.href='@Url.Action("Buy", "Checkout", new { id = item.Id })'" /></td>
-
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Image</th>
+                <th scope="col">Price</th>
+                <th scope="col">Action</th>
             </tr>
-        }
-    </tbody>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Items)
+            {
+                <tr>
+                    <th scope="row">@item.Name</th>
+                    <td><img src="~/Images/@item.ImgRef" width="80" /></td>
+                    <td>$@item.Price</td>
+                    <td><input type="button" class="btn btn-success" value="Buy Now" onclick="location.href='@Url.Action("Buy", "Checkout", new { id = item.Id })'" /></td>
+                </tr>
+            }
+        </tbody>
 </table>
 
-@*<td><a href="@Url.Action("Buy", "Checkout", new { id = item.Id })">Buy Now</a></td>*@
+
