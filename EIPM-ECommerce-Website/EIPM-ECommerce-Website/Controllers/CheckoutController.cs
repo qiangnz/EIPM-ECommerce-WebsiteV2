@@ -121,7 +121,7 @@ namespace EIPM_ECommerce_Website.Controllers
             string APIPayMentContractId = "dbc21671-f4e7-4902-80b5-7b262a201408";
             string APIMerchant_ref = "EIPMOrderRef000" + transactionTable.TId;
             string returnURL= HttpContext.Request.Url.AbsoluteUri.Remove(HttpContext.Request.Url.AbsoluteUri.IndexOf(HttpContext.Request.Url.AbsolutePath));
-            string APIReturnURL = returnURL + "/Checkout/PaymentResult";
+            string APIReturnURL = returnURL + "/Checkout/PaymentResult/";
             string APIInteractionType="HPP";
 
 
@@ -217,7 +217,8 @@ namespace EIPM_ECommerce_Website.Controllers
                 amount = amount.Substring(0, (amount.Length - 2)) + "." + amount.Substring(amount.Length - 2);
                 List<Checkout> checkout = (List<Checkout>)Session["Checkout"];
                 checkout.Clear();
-                return RedirectToAction("Success", "Checkout",new {paidAmount=amount });
+                return RedirectToAction("Success", "Checkout");
+                //return RedirectToAction("Success", "Checkout", new { paidAmount = amount });
             }
             else
             {

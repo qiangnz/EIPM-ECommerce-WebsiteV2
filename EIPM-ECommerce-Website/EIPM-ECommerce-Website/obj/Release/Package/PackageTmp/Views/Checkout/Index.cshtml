@@ -1,0 +1,69 @@
+﻿@using EIPM_ECommerce_Website.Models;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div>
+    <h2>Checkout</h2>
+</div>
+@if ((List<Checkout>)Session["Checkout"] == null)
+{
+    <h4 style="text-align:center"><strong>Please Select a Product</strong></h4>
+
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Image</th>
+                <th scope="col">Product Price</th>
+                <th scope="col">Product Quantity</th>
+                <th scope="col">Sub Total</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (Checkout item in (List<Checkout>)Session["Checkout"])
+            {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td><img src="~/Images/@item.Product.ImgRef" width="80" /></td>
+                    <td>$@item.Product.Price</td>
+                    <td>
+                        <input type="button" class="btn btn-warning" value="+" onclick="location.href='@Url.Action("AddQuantity", "Checkout", new { id = item.Product.Id })'" />
+                        @item.Quantity
+                        <input type="button" class="btn btn-warning" value="-" onclick="location.href='@Url.Action("MinusQuantity", "Checkout", new { id = item.Product.Id })'" />
+                    </td>
+                    <td>$@(item.Product.Price * item.Quantity)</td>
+                    <td><input type="button" class="btn btn-danger" value="Remove" onclick="location.href='@Url.Action("Remove", "Checkout", new { id = item.Product.Id })'" /></td>
+                </tr>
+            }
+            <tr>
+                <td align="right" colspan="6"> <strong>Amount:</strong></td>
+                <td>
+                    <strong>
+                        @{
+                            List<Checkout> cart = (List<Checkout>)Session["Checkout"];
+                            var total = cart.Sum(item => item.Product.Price * item.Quantity);
+                        }
+                        $@total
+                    </strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    if (total != 0)
+    {
+        <input type="button" class="btn btn-primary pull-right" value="Payment" onclick="location.href='@Url.Action("Payment", "Checkout", new { amount = total })'" />
+    }
+    else
+    {
+        <h4 style="text-align:center"><strong>Please Select a Product</strong></h4>
+    }
+
+}
+<input type="button" class="btn btn-primary" value="Continue Shopping" onclick="location.href='@Url.Action("Index", "Home")'" />

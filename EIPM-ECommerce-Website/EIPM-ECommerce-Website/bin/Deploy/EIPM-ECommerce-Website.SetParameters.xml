@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="EIPM" />
+  <setParameter name="EIPMDBEntities-Web.config Connection String" value="metadata=res://*/Models.EIPMDBModel.csdl|res://*/Models.EIPMDBModel.ssdl|res://*/Models.EIPMDBModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=(LocalDB)\MSSQLLocalDB;attachdbfilename=|DataDirectory|\EIPMDB.mdf;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" />
+</parameters>
